@@ -11,9 +11,11 @@ export const useAccountValidation = (account: Account) => {
 
   function validate(field: ErrorKeys) {
     errors.value[field] = []
-    if (!account[field]) {
+    if (!account[field] || !account[field].length) {
       errors.value[field].push('Поле обязательно для заполнения')
     }
+
+    return errors.value[field].length === 0
   }
 
   return {

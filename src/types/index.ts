@@ -1,7 +1,7 @@
 export type AccountType = 'ldap' | 'local'
 
 export type Account = {
-  mark: string
+  mark: { text: string }[]
   type: AccountType
   login: string
   password: string | null

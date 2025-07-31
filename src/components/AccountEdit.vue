@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import type { Account } from '@/types'
 import AccountTable from './AccountTable.vue'
 import Button from 'primevue/button'
-import { ref } from 'vue'
 import { useAccountsStore } from '@/stores/accounts'
+import { onMounted } from 'vue'
 
-const { accounts } = useAccountsStore()
-
-const tempAccounts = ref<Account[]>([...accounts])
+const store = useAccountsStore()
 
 function addAccountFields() {
-  tempAccounts.value.push({ mark: '', type: 'local', login: '', password: '' })
+  store.addAccount({ mark: [{ text: '' }], type: 'local', login: '', password: '' })
 }
+
+onMounted(() => store.loadAccounts())
 </script>
 
 <template>
@@ -28,7 +27,7 @@ function addAccountFields() {
       >
     </div>
 
-    <AccountTable v-model="tempAccounts" />
+    <AccountTable :accounts="store.accounts" />
   </section>
 </template>
 
